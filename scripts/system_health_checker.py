@@ -1,24 +1,27 @@
 import platform
 import socket
 import psutil
+import argparse
 
 
 def get_system_health():
-    cpu_usage = psutil.cpu_percent(interval=1)
-    memory_usage = psutil.virtual_memory().percent
-    disk_usage = psutil.disk_usage("/").percent
+    """Collect system health information."""
 
-    return {
-        "computer_name": socket.gethostname(),
+    health = {
+        "hostname": socket.gethostname(),
         "operating_system": platform.system(),
         "os_version": platform.version(),
-        "cpu_usage": cpu_usage,
-        "memory_usage": memory_usage,
-        "disk_usage": disk_usage
+        "cpu_usage": psutil.cpu_percent(interval=1),
+        "memory_usage": psutil.virtual_memory().percent,
+        "disk_usage": psutil.disk_usage("C:\\").percent
     }
+
+    return health
 
 
 def determine_status(usage):
+    """Determine health status based on usage percentage."""
+
     if usage >= 90:
         return "CRITICAL"
     elif usage >= 75:
@@ -27,36 +30,86 @@ def determine_status(usage):
         return "HEALTHY"
 
 
-def display_health(system_health):
-    print("\n=============================================")
-    print("          SYSTEM HEALTH CHECKER")
-    print("=============================================")
+def display_health(health, show_system=True):
+    """Display system health information."""
 
-    print(f"Computer Name : {system_health['computer_name']}")
-    print(f"Operating System : {system_health['operating_system']}")
-    print(f"OS Version : {system_health['os_version']}")
+    print("\n===== SYSTEM HEALTH REPORT =====")
 
-    print("\nRESOURCE USAGE")
-    print("---------------------------------------------")
+    if show_system:
+        print(f"Hostname: {health['hostname']}")
+        print(f"Operating System: {health['operating_system']}")
+        print(f"OS Version: {health['os_version']}")
 
-    cpu = system_health["cpu_usage"]
-    memory = system_health["memory_usage"]
-    disk = system_health["disk_usage"]
+    print(
+        f"CPU Usage: {health['cpu_usage']}% "
+        f"[{determine_status(health['cpu_usage'])}]"
+    )
 
-    print(f"CPU Usage    : {cpu}% - {determine_status(cpu)}")
-    print(f"Memory Usage : {memory}% - {determine_status(memory)}")
-    print(f"Disk Usage   : {disk}% - {determine_status(disk)}")
+    print(
+        f"Memory Usage: {health['memory_usage']}% "
+        f"[{determine_status(health['memory_usage'])}]"
+    )
 
-    print("=============================================")
+    print(
+        f"Disk Usage: {health['disk_usage']}% "
+        f"[{determine_status(health['disk_usage'])}]"
+    )
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="IT System Health Checker"
+    )
+
+    parser.add_argument(
+        "--system",
+        action="store_true",
+        help="Display system information"
+    )
+
+    parser.add_argument(
+        "--resources",
+        action="store_true",
+        help="Display CPU, memory and disk usage"
+    )
+
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Display all health information"
+    )
+
+    args = parser.parse_args()
+
     try:
-        system_health = get_system_health()
-        display_health(system_health)
+        health = get_system_health()
+
+        if args.all or (not args.system and not args.resources):
+            display_health(health)
+
+        elif args.system:
+            print("\n===== SYSTEM INFORMATION =====")
+            print(f"Hostname: {health['hostname']}")
+            print(f"Operating System: {health['operating_system']}")
+            print(f"OS Version: {health['os_version']}")
+
+        elif args.resources:
+            print("\n===== RESOURCE HEALTH =====")
+            print(
+                f"CPU Usage: {health['cpu_usage']}% "
+                f"[{determine_status(health['cpu_usage'])}]"
+            )
+            print(
+                f"Memory Usage: {health['memory_usage']}% "
+                f"[{determine_status(health['memory_usage'])}]"
+            )
+            print(
+                f"Disk Usage: {health['disk_usage']}% "
+                f"[{determine_status(health['disk_usage'])}]"
+            )
 
     except Exception as error:
-        print(f"Error while checking system health: {error}")
+        print(f"Unable to retrieve system health information: {error}")
 
 
 if __name__ == "__main__":
