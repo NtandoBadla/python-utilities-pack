@@ -4,3 +4,4 @@ logs/
 scripts/logs/
 scripts/reports/
 *.pyc
+scripts/output/
