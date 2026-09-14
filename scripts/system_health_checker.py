@@ -7,6 +7,7 @@ from pathlib import Path
 import psutil
 
 from config_manager import load_config
+from report_generator import generate_report
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -131,6 +132,11 @@ def main():
     parser.add_argument("--system", action="store_true", help="Display system information")
     parser.add_argument("--resources", action="store_true", help="Display CPU, memory and disk usage")
     parser.add_argument("--all", action="store_true", help="Display all health information")
+    parser.add_argument(
+        "--report",
+        choices=["json", "csv", "html", "text"],
+        help="Save a structured report in the given format (in the 'reports/' folder)"
+    )
 
     args = parser.parse_args()
 
@@ -138,6 +144,11 @@ def main():
 
     try:
         health = get_system_health()
+        statuses = {
+            "cpu_usage": determine_status(health["cpu_usage"]),
+            "memory_usage": determine_status(health["memory_usage"]),
+            "disk_usage": determine_status(health["disk_usage"]),
+        }
 
         if args.all or (not args.system and not args.resources):
             display_health(health)
@@ -151,6 +162,10 @@ def main():
             print(format_metric("CPU Usage", health["cpu_usage"]))
             print(format_metric("Memory Usage", health["memory_usage"]))
             print(format_metric("Disk Usage", health["disk_usage"]))
+
+        if args.report:
+            path = generate_report(health, statuses, output_format=args.report)
+            print(f"\nReport saved to: {path}")
 
         logger.info("Health check completed successfully.")
 
