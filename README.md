@@ -2,13 +2,13 @@
 
 # 🐍 Python Utilities Pack
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=2E9EF7&center=true&vCenter=true&width=600&lines=IT+Automation+with+Python;File+Organizer+%7C+Log+Analyzer+%7C+Health+Checker;Built+during+a+Python+IT+Automation+Bootcamp)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=2E9EF7&center=true&vCenter=true&width=600&lines=IT+Automation+with+Python;File+Organizer+%7C+Log+Analyzer+%7C+Health+Checker;Configurable+%7C+Tested+%7C+Cloud-Ready)](https://git.io/typing-svg)
 
 ![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white)
+![Docker](https://img.shields.io/badge/Container-Ready-2496ED?logo=docker&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Made with](https://img.shields.io/badge/Made%20with-%E2%98%95%20%26%20Python-orange)
 
 </div>
 
@@ -16,7 +16,7 @@
 
 A growing collection of practical Python utilities built to support everyday **IT department** tasks — from system diagnostics to log analysis and file automation.
 
-Each week builds on the last, moving from core Python fundamentals toward real command-line automation tools, proper Git workflows, and professional documentation.
+Each week builds on the last: Week 1 covered Python fundamentals, Week 2 added automation and a proper Git/GitHub workflow, and Week 3 focused on making the toolkit **robust, configurable, and cloud-ready** — logging, testing, exception handling, externalized configuration, and container packaging.
 
 ---
 
@@ -24,15 +24,12 @@ Each week builds on the last, moving from core Python fundamentals toward real c
 
 - [Project Overview](#-project-overview)
 - [Week 1 — Python Fundamentals](#-week-1--python-fundamentals)
-  - [System Information Tool](#1-system-information-tool)
-  - [Password Strength Checker](#2-password-strength-checker)
-  - [IT User & Device Manager](#3-it-user--device-manager)
 - [Week 2 — Automation & Git Workflow](#-week-2--automation--git-workflow)
-  - [File Organizer](#1-file-organizer)
-  - [Regex Log Analyzer](#2-regex-log-analyzer)
-  - [Command-Line System Health Checker](#3-command-line-system-health-checker)
+- [Week 3 — Troubleshooting, Configuration & Cloud](#-week-3--troubleshooting-configuration--cloud)
 - [Project Structure](#-project-structure)
+- [Configuration](#-configuration)
 - [Running the Scripts](#️-running-the-scripts)
+- [Running with Docker](#-running-with-docker)
 - [Python Concepts Practised](#-python-concepts-practised)
 - [IT Department Applications](#-it-department-applications)
 - [Future Improvements](#-future-improvements)
@@ -44,30 +41,19 @@ Each week builds on the last, moving from core Python fundamentals toward real c
 
 The **Python Utilities Pack** is a set of command-line tools written to solve practical problems an IT department deals with day to day — checking system health, cleaning up messy folders, parsing log files, and keeping basic records of users and devices.
 
-The project is organised by week, tracking progress from Python fundamentals through to automation scripting and collaborative Git workflows (branches, pull requests, and code review).
+The project is organised by week, tracking progress from Python fundamentals through automation scripting, Git/GitHub collaboration, and finally professional practices like configuration management and cloud-readiness.
 
 ---
 
 ## 🗂️ Week 1 — Python Fundamentals
 
-### 1. System Information Tool
+| Tool | File | Purpose |
+|---|---|---|
+| System Information Tool | `scripts/system_information.py` | Displays computer name, OS, processor, architecture, and current user |
+| Password Strength Checker | `scripts/password_checker.py` | Categorises a password as WEAK, MEDIUM, or STRONG against basic security requirements |
+| IT User & Device Manager | `scripts/IT_manager.py` | Command-line tool for managing basic employee and device records |
 
-**File:** `scripts/system_information.py`
-
-Displays information about the computer running the program.
-
-Information includes:
-
-* Computer name
-* Operating system
-* OS version
-* Processor
-* System architecture
-* Number of CPU cores
-* Python version
-* Current user
-
-**Example:**
+**Example — System Information Tool:**
 
 ```text
 =============================================
@@ -86,105 +72,17 @@ Current User    : Ntando.Badla
 
 ---
 
-### 2. Password Strength Checker
-
-**File:** `scripts/password_checker.py`
-
-Checks a password against basic security requirements:
-
-* Minimum 8 characters
-* Uppercase letters
-* Lowercase letters
-* Numbers
-* Special characters
-
-Categorises passwords as **WEAK**, **MEDIUM**, or **STRONG**, and identifies any missing requirements.
-
----
-
-### 3. IT User & Device Manager
-
-**File:** `scripts/IT_manager.py`
-
-A command-line tool for managing basic employee and IT device records.
-
-```text
-=============================================
-          IT USER & DEVICE MANAGER
-=============================================
-1. Add employee
-2. View employees
-3. Search employee
-4. Add device
-5. View devices
-6. Exit
-=============================================
-```
-
----
-
 ## ⚙️ Week 2 — Automation & Git Workflow
 
 Week 2 shifted focus to **automation scripts**, **command-line arguments**, and a proper **Git/GitHub collaboration workflow** — feature branches, pull requests, and code review — rather than working directly on `main`.
 
-### 1. File Organizer
+| Tool | File | Purpose |
+|---|---|---|
+| File Organizer | `scripts/file_organizer.py` | Scans a directory and automatically sorts files into subfolders by type |
+| Regex Log Analyzer | `scripts/log_analyzer.py` | Parses log files with regular expressions to extract errors, timestamps, and IP addresses |
+| System Health Checker | `scripts/system_health_checker.py` | Reports CPU, memory, and disk usage, flagged as HEALTHY / WARNING / CRITICAL |
 
-**File:** `scripts/file_organizer.py`
-
-Scans a target directory and automatically sorts files into subfolders based on file type (e.g. Documents, Images, Scripts, Archives), reducing manual folder cleanup.
-
-**Example:**
-
-```bash
-python scripts/file_organizer.py --path "C:\Users\user\Downloads"
-```
-
-```text
-=============================================
-          FILE ORGANIZER
-=============================================
-Scanning: C:\Users\user\Downloads
-Moved 12 files → Documents/
-Moved 5 files  → Images/
-Moved 3 files  → Archives/
-Organization complete.
-=============================================
-```
-
----
-
-### 2. Regex Log Analyzer
-
-**File:** `scripts/log_analyzer.py`
-
-Parses log files using regular expressions to extract useful information such as error counts, timestamps, and IP addresses — helpful for quickly triaging system or application logs.
-
-**Example:**
-
-```bash
-python scripts/log_analyzer.py --file "logs/system.log"
-```
-
-```text
-=============================================
-          LOG ANALYSIS REPORT
-=============================================
-Total lines scanned : 4,210
-ERROR entries        : 37
-WARNING entries       : 112
-Most frequent IP      : 192.168.1.14
-=============================================
-```
-
----
-
-### 3. Command-Line System Health Checker
-
-**File:** `scripts/system_health_checker.py`
-
-Checks real-time system health — CPU, memory, and disk usage — and flags each as **HEALTHY**, **WARNING**, or **CRITICAL** based on usage thresholds. Supports command-line flags for flexible reporting.
-
-**Example:**
+**Example — System Health Checker:**
 
 ```bash
 python scripts/system_health_checker.py --all
@@ -200,13 +98,78 @@ Memory Usage: 89.4% [WARNING]
 Disk Usage: 95.4% [CRITICAL]
 ```
 
-**Available flags:**
+---
 
-| Flag | Description |
-|------|-------------|
-| `--system` | Display system information only |
-| `--resources` | Display CPU, memory and disk usage only |
-| `--all` | Display full health report (default if no flag given) |
+## 🛠️ Week 3 — Troubleshooting, Configuration & Cloud
+
+Week 3 focused on making the toolkit production-minded: diagnosable when something goes wrong, configurable without editing code, and portable across machines and environments.
+
+### 1. Troubleshooting Methodology
+
+Applied a consistent method to real and deliberately-broken bugs: reproduce → read the error → isolate → hypothesise → test → fix → prevent. See [`WEEK3_REPORT.md`](WEEK3_REPORT.md) for a full write-up, including a real issue this process uncovered (elevated CPU usage traced to OneDrive struggling to sync on a near-full disk).
+
+### 2. Logging, Exception Handling & Testing
+
+**File:** `scripts/system_health_checker.py`, `scripts/test_system_health_checker.py`
+
+- Every run now logs to `logs/system_health_checker.log` with timestamps, in addition to console output.
+- Each metric (hostname, CPU, memory, disk) is collected independently with its own error handling — one failure no longer crashes the whole script.
+- 10 unit tests cover the status-threshold logic and formatting.
+
+```bash
+cd scripts
+python -m unittest test_system_health_checker -v
+```
+
+### 3. Performance Monitoring
+
+**File:** `scripts/performance_monitor.py`
+
+- `@timed` — a reusable decorator that logs how long any function takes to run.
+- `top_processes()` — lists the processes consuming the most CPU or memory right now.
+
+```bash
+python scripts/performance_monitor.py --sort-by cpu --limit 5
+```
+
+```text
+===== TOP 5 PROCESSES BY CPU % =====
+PID     Name                          CPU %
+--------------------------------------------------
+8000    python.exe                    61.60
+9456    OneDrive.exe                  34.50
+4596    OneDrive.Sync.Service.exe     27.60
+```
+
+### 4. Configuration Management
+
+**File:** `scripts/config_manager.py`, `scripts/config.json`
+
+Thresholds and paths were externalized from hardcoded values into `config.json`, with validation and environment-variable overrides for cloud/VM deployment.
+
+```json
+{
+    "thresholds": { "warning": 75, "critical": 90 },
+    "performance": { "top_process_limit": 5, "sort_by": "cpu" }
+}
+```
+
+Override without touching a file — e.g. for a deployed environment:
+
+```bash
+export HEALTH_WARNING_THRESHOLD=80
+python scripts/system_health_checker.py --all
+```
+
+### 5. Cloud & Container Readiness
+
+**Files:** `requirements.txt`, `Dockerfile`, `CLOUD_DEPLOYMENT.md`
+
+The toolkit is now packaged so it runs identically on a laptop, a VM, or a container platform. See [`CLOUD_DEPLOYMENT.md`](CLOUD_DEPLOYMENT.md) for VM vs. container concepts and scalability notes.
+
+---
+
+**Weekly deliverable:** [`WEEK3_REPORT.md`](WEEK3_REPORT.md) — full troubleshooting and configuration-management report.
 
 ---
 
@@ -221,19 +184,50 @@ python-utilities-pack/
 │   ├── IT_manager.py
 │   ├── file_organizer.py
 │   ├── log_analyzer.py
-│   └── system_health_checker.py
+│   ├── system_health_checker.py
+│   ├── test_system_health_checker.py
+│   ├── performance_monitor.py
+│   ├── config_manager.py
+│   └── config.json
 │
+├── requirements.txt
+├── Dockerfile
+├── .gitignore
+├── CLOUD_DEPLOYMENT.md
+├── WEEK3_REPORT.md
 └── README.md
 ```
 
 ---
 
+## ⚙️ Configuration
+
+Settings live in `scripts/config.json`, auto-created with defaults on first run:
+
+| Setting | Default | Description |
+|---|---|---|
+| `thresholds.warning` | 75 | % usage that triggers a WARNING status |
+| `thresholds.critical` | 90 | % usage that triggers a CRITICAL status |
+| `performance.top_process_limit` | 5 | Number of processes shown by the performance monitor |
+| `performance.sort_by` | `cpu` | Sort top processes by `cpu` or `memory` |
+
+Any setting can be overridden with an environment variable (useful for cloud/VM deployment without editing files):
+
+| Environment Variable | Overrides |
+|---|---|
+| `HEALTH_WARNING_THRESHOLD` | `thresholds.warning` |
+| `HEALTH_CRITICAL_THRESHOLD` | `thresholds.critical` |
+| `HEALTH_TOP_PROCESS_LIMIT` | `performance.top_process_limit` |
+| `HEALTH_SORT_BY` | `performance.sort_by` |
+
+---
+
 ## ▶️ Running the Scripts
 
-Make sure Python 3.10+ is installed, and install dependencies where needed:
+Install dependencies:
 
 ```bash
-pip install psutil
+pip install -r requirements.txt
 ```
 
 From the project directory:
@@ -248,6 +242,25 @@ python scripts/IT_manager.py
 python scripts/file_organizer.py --path "<folder-path>"
 python scripts/log_analyzer.py --file "<log-file-path>"
 python scripts/system_health_checker.py --all
+
+# Week 3
+python scripts/performance_monitor.py --sort-by cpu --limit 5
+cd scripts && python -m unittest test_system_health_checker -v
+```
+
+---
+
+## 🐳 Running with Docker
+
+```bash
+# Build the image
+docker build -t it-toolkit .
+
+# Run with default thresholds
+docker run --rm it-toolkit
+
+# Override a threshold at run time — no rebuild needed
+docker run --rm -e HEALTH_WARNING_THRESHOLD=80 it-toolkit
 ```
 
 ---
@@ -257,31 +270,29 @@ python scripts/system_health_checker.py --all
 <div align="center">
 
 ![Variables](https://img.shields.io/badge/-Variables-2E9EF7?style=flat-square)
-![Data Types](https://img.shields.io/badge/-Data%20Types-2E9EF7?style=flat-square)
 ![Conditionals](https://img.shields.io/badge/-Conditionals-2E9EF7?style=flat-square)
 ![Loops](https://img.shields.io/badge/-Loops-2E9EF7?style=flat-square)
 ![Functions](https://img.shields.io/badge/-Functions-2E9EF7?style=flat-square)
-![Dictionaries](https://img.shields.io/badge/-Dictionaries-2E9EF7?style=flat-square)
-![Error Handling](https://img.shields.io/badge/-Error%20Handling-2E9EF7?style=flat-square)
 ![Regex](https://img.shields.io/badge/-Regex-2E9EF7?style=flat-square)
 ![argparse](https://img.shields.io/badge/-argparse-2E9EF7?style=flat-square)
-![File I/O](https://img.shields.io/badge/-File%20I%2FO-2E9EF7?style=flat-square)
+![Logging](https://img.shields.io/badge/-Logging-2E9EF7?style=flat-square)
+![Exception Handling](https://img.shields.io/badge/-Exception%20Handling-2E9EF7?style=flat-square)
+![Unit Testing](https://img.shields.io/badge/-Unit%20Testing-2E9EF7?style=flat-square)
+![Decorators](https://img.shields.io/badge/-Decorators-2E9EF7?style=flat-square)
+![JSON Config](https://img.shields.io/badge/-JSON%20Config-2E9EF7?style=flat-square)
+![Docker](https://img.shields.io/badge/-Docker-2E9EF7?style=flat-square)
 ![Git & GitHub](https://img.shields.io/badge/-Git%20%26%20GitHub-2E9EF7?style=flat-square)
-![Automation](https://img.shields.io/badge/-Automation-2E9EF7?style=flat-square)
 
 </div>
 
-* Variables, data types, strings, operators
-* Conditional logic and logical expressions
-* `for` and `while` loops
-* Lists, tuples, dictionaries
-* Functions and modules
-* User input and basic validation
-* Error handling (`try` / `except`)
-* Regular expressions (`re`)
-* Command-line arguments (`argparse`)
-* Working with the file system (`os`, `shutil`)
-* System introspection (`platform`, `socket`, `psutil`)
+* Variables, data types, strings, operators, conditional logic
+* `for` / `while` loops, lists, tuples, dictionaries
+* Functions, modules, and decorators (`@timed`)
+* Regular expressions (`re`) and `argparse`
+* Structured logging (`logging`) and exception handling (`try`/`except`)
+* Unit testing (`unittest`)
+* JSON-based configuration with validation and environment-variable overrides
+* Containerization concepts (`Dockerfile`)
 * Git branching, commits, and pull request workflows
 
 ---
@@ -289,23 +300,24 @@ python scripts/system_health_checker.py --all
 ## 💼 IT Department Applications
 
 | Tool | Real-world use |
-|------|----------------|
+|---|---|
 | System Information Tool | Quickly identify basic computer/system specs during support tickets |
 | Password Strength Checker | Enforce/verify password policy compliance |
 | IT User & Device Manager | Maintain basic employee and equipment records |
 | File Organizer | Automate cleanup of shared drives or downloads folders |
 | Regex Log Analyzer | Rapidly triage system/application logs for errors and anomalies |
 | System Health Checker | Monitor CPU, memory and disk health for early warning of resource issues |
+| Performance Monitor | Identify exactly which processes are consuming system resources |
+| Configuration Management | Tune alert thresholds per-deployment without editing code |
 
 ---
 
 ## 🚀 Future Improvements
 
 - [ ] Add persistent data storage (JSON/CSV/SQLite)
-- [ ] Add automated unit tests (`pytest`)
-- [ ] Add stronger input validation across all tools
-- [ ] Add password input masking
-- [ ] Add scheduled/automated health check runs
+- [ ] Add scheduled/automated health check runs (cron / Task Scheduler)
+- [ ] Send alerts (email/Slack webhook) on CRITICAL status
+- [ ] Centralize reports from multiple machines
 - [ ] Export reports (CSV/PDF) from log analyzer and health checker
 - [ ] Add a simple GUI or web dashboard
 - [ ] CI pipeline (GitHub Actions) to lint and test on every PR
@@ -317,7 +329,7 @@ python scripts/system_health_checker.py --all
 <div align="center">
 
 **Ntando Badla**
-Python & IT Automation — Week 2
+Python & IT Automation — Week 3
 
 ![Profile Views](https://komarev.com/ghpvc/?username=NtandoBadla&color=2E9EF7&style=flat-square&label=Repo+Views)
 
