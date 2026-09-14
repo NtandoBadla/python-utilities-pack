@@ -1,24 +1,54 @@
+<div align="center">
+
 # 🐍 Python Utilities Pack
 
-A collection of three practical Python utilities developed as part of **Week 1: Python Fundamentals**.
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=2E9EF7&center=true&vCenter=true&width=600&lines=IT+Automation+with+Python;File+Organizer+%7C+Log+Analyzer+%7C+Health+Checker;Built+during+a+Python+IT+Automation+Bootcamp)](https://git.io/typing-svg)
 
-The project demonstrates how Python can be used to automate simple tasks that could support an IT department.
+![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white)
+![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Made with](https://img.shields.io/badge/Made%20with-%E2%98%95%20%26%20Python-orange)
+
+</div>
+
+---
+
+A growing collection of practical Python utilities built to support everyday **IT department** tasks — from system diagnostics to log analysis and file automation.
+
+Each week builds on the last, moving from core Python fundamentals toward real command-line automation tools, proper Git workflows, and professional documentation.
+
+---
+
+## 📖 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Week 1 — Python Fundamentals](#-week-1--python-fundamentals)
+  - [System Information Tool](#1-system-information-tool)
+  - [Password Strength Checker](#2-password-strength-checker)
+  - [IT User & Device Manager](#3-it-user--device-manager)
+- [Week 2 — Automation & Git Workflow](#-week-2--automation--git-workflow)
+  - [File Organizer](#1-file-organizer)
+  - [Regex Log Analyzer](#2-regex-log-analyzer)
+  - [Command-Line System Health Checker](#3-command-line-system-health-checker)
+- [Project Structure](#-project-structure)
+- [Running the Scripts](#️-running-the-scripts)
+- [Python Concepts Practised](#-python-concepts-practised)
+- [IT Department Applications](#-it-department-applications)
+- [Future Improvements](#-future-improvements)
+- [Author](#-author)
 
 ---
 
 ## 📌 Project Overview
 
-The Python Utilities Pack contains three command-line tools:
+The **Python Utilities Pack** is a set of command-line tools written to solve practical problems an IT department deals with day to day — checking system health, cleaning up messy folders, parsing log files, and keeping basic records of users and devices.
 
-1. **System Information Tool** — Collects useful information about a computer.
-2. **Password Strength Checker** — Checks whether a password meets basic security requirements.
-3. **IT User & Device Manager** — Manages employee and device records.
-
-The project focuses on applying Python fundamentals to practical IT-related problems.
+The project is organised by week, tracking progress from Python fundamentals through to automation scripting and collaborative Git workflows (branches, pull requests, and code review).
 
 ---
 
-## 🛠️ Utilities
+## 🗂️ Week 1 — Python Fundamentals
 
 ### 1. System Information Tool
 
@@ -60,9 +90,7 @@ Current User    : Ntando.Badla
 
 **File:** `scripts/password_checker.py`
 
-Checks a password against basic security requirements.
-
-The tool checks for:
+Checks a password against basic security requirements:
 
 * Minimum 8 characters
 * Uppercase letters
@@ -70,13 +98,7 @@ The tool checks for:
 * Numbers
 * Special characters
 
-It categorises passwords as:
-
-* **WEAK**
-* **MEDIUM**
-* **STRONG**
-
-The tool also identifies requirements that are missing.
+Categorises passwords as **WEAK**, **MEDIUM**, or **STRONG**, and identifies any missing requirements.
 
 ---
 
@@ -85,17 +107,6 @@ The tool also identifies requirements that are missing.
 **File:** `scripts/IT_manager.py`
 
 A command-line tool for managing basic employee and IT device records.
-
-The system allows users to:
-
-* Add employees
-* View employees
-* Search for employees
-* Add devices
-* View devices
-* Exit the application
-
-Example:
 
 ```text
 =============================================
@@ -112,27 +123,90 @@ Example:
 
 ---
 
-## 🧠 Python Concepts Practised
+## ⚙️ Week 2 — Automation & Git Workflow
 
-This project applies the following Python fundamentals:
+Week 2 shifted focus to **automation scripts**, **command-line arguments**, and a proper **Git/GitHub collaboration workflow** — feature branches, pull requests, and code review — rather than working directly on `main`.
 
-* Variables
-* Data types
-* Strings
-* Operators
-* Conditional statements
-* Logical expressions
-* `for` loops
-* `while` loops
-* Lists
-* Tuples
-* Dictionaries
-* Functions
-* Modules
-* User input
-* Basic validation
-* Error handling
-* Reusable code
+### 1. File Organizer
+
+**File:** `scripts/file_organizer.py`
+
+Scans a target directory and automatically sorts files into subfolders based on file type (e.g. Documents, Images, Scripts, Archives), reducing manual folder cleanup.
+
+**Example:**
+
+```bash
+python scripts/file_organizer.py --path "C:\Users\user\Downloads"
+```
+
+```text
+=============================================
+          FILE ORGANIZER
+=============================================
+Scanning: C:\Users\user\Downloads
+Moved 12 files → Documents/
+Moved 5 files  → Images/
+Moved 3 files  → Archives/
+Organization complete.
+=============================================
+```
+
+---
+
+### 2. Regex Log Analyzer
+
+**File:** `scripts/log_analyzer.py`
+
+Parses log files using regular expressions to extract useful information such as error counts, timestamps, and IP addresses — helpful for quickly triaging system or application logs.
+
+**Example:**
+
+```bash
+python scripts/log_analyzer.py --file "logs/system.log"
+```
+
+```text
+=============================================
+          LOG ANALYSIS REPORT
+=============================================
+Total lines scanned : 4,210
+ERROR entries        : 37
+WARNING entries       : 112
+Most frequent IP      : 192.168.1.14
+=============================================
+```
+
+---
+
+### 3. Command-Line System Health Checker
+
+**File:** `scripts/system_health_checker.py`
+
+Checks real-time system health — CPU, memory, and disk usage — and flags each as **HEALTHY**, **WARNING**, or **CRITICAL** based on usage thresholds. Supports command-line flags for flexible reporting.
+
+**Example:**
+
+```bash
+python scripts/system_health_checker.py --all
+```
+
+```text
+===== SYSTEM HEALTH REPORT =====
+Hostname: LAPTOP-17TBAUFS
+Operating System: Windows
+OS Version: 10.0.26200
+CPU Usage: 50.8% [HEALTHY]
+Memory Usage: 89.4% [WARNING]
+Disk Usage: 95.4% [CRITICAL]
+```
+
+**Available flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--system` | Display system information only |
+| `--resources` | Display CPU, memory and disk usage only |
+| `--all` | Display full health report (default if no flag given) |
 
 ---
 
@@ -144,7 +218,10 @@ python-utilities-pack/
 ├── scripts/
 │   ├── system_information.py
 │   ├── password_checker.py
-│   └── IT_manager.py
+│   ├── IT_manager.py
+│   ├── file_organizer.py
+│   ├── log_analyzer.py
+│   └── system_health_checker.py
 │
 └── README.md
 ```
@@ -153,74 +230,95 @@ python-utilities-pack/
 
 ## ▶️ Running the Scripts
 
-Make sure Python is installed on your computer.
-
-From the project directory, run:
-
-### System Information
+Make sure Python 3.10+ is installed, and install dependencies where needed:
 
 ```bash
+pip install psutil
+```
+
+From the project directory:
+
+```bash
+# Week 1
 python scripts/system_information.py
-```
-
-### Password Checker
-
-```bash
 python scripts/password_checker.py
-```
-
-### IT User & Device Manager
-
-```bash
 python scripts/IT_manager.py
+
+# Week 2
+python scripts/file_organizer.py --path "<folder-path>"
+python scripts/log_analyzer.py --file "<log-file-path>"
+python scripts/system_health_checker.py --all
 ```
+
+---
+
+## 🧠 Python Concepts Practised
+
+<div align="center">
+
+![Variables](https://img.shields.io/badge/-Variables-2E9EF7?style=flat-square)
+![Data Types](https://img.shields.io/badge/-Data%20Types-2E9EF7?style=flat-square)
+![Conditionals](https://img.shields.io/badge/-Conditionals-2E9EF7?style=flat-square)
+![Loops](https://img.shields.io/badge/-Loops-2E9EF7?style=flat-square)
+![Functions](https://img.shields.io/badge/-Functions-2E9EF7?style=flat-square)
+![Dictionaries](https://img.shields.io/badge/-Dictionaries-2E9EF7?style=flat-square)
+![Error Handling](https://img.shields.io/badge/-Error%20Handling-2E9EF7?style=flat-square)
+![Regex](https://img.shields.io/badge/-Regex-2E9EF7?style=flat-square)
+![argparse](https://img.shields.io/badge/-argparse-2E9EF7?style=flat-square)
+![File I/O](https://img.shields.io/badge/-File%20I%2FO-2E9EF7?style=flat-square)
+![Git & GitHub](https://img.shields.io/badge/-Git%20%26%20GitHub-2E9EF7?style=flat-square)
+![Automation](https://img.shields.io/badge/-Automation-2E9EF7?style=flat-square)
+
+</div>
+
+* Variables, data types, strings, operators
+* Conditional logic and logical expressions
+* `for` and `while` loops
+* Lists, tuples, dictionaries
+* Functions and modules
+* User input and basic validation
+* Error handling (`try` / `except`)
+* Regular expressions (`re`)
+* Command-line arguments (`argparse`)
+* Working with the file system (`os`, `shutil`)
+* System introspection (`platform`, `socket`, `psutil`)
+* Git branching, commits, and pull request workflows
 
 ---
 
 ## 💼 IT Department Applications
 
-These utilities demonstrate how simple Python programs can assist with everyday IT tasks.
-
-### System Information Tool
-
-Can help IT support staff quickly identify basic computer and system information.
-
-### Password Strength Checker
-
-Can help users identify whether passwords meet basic security requirements.
-
-### IT User & Device Manager
-
-Can help maintain basic records of employees and their assigned IT equipment.
-
----
-
-## 📚 Learning Outcome
-
-The project demonstrates the progression from basic Python syntax to building small, functional IT automation tools.
-
-The goal was not only to learn Python concepts, but to apply those concepts to practical problems that could occur in an IT environment.
+| Tool | Real-world use |
+|------|----------------|
+| System Information Tool | Quickly identify basic computer/system specs during support tickets |
+| Password Strength Checker | Enforce/verify password policy compliance |
+| IT User & Device Manager | Maintain basic employee and equipment records |
+| File Organizer | Automate cleanup of shared drives or downloads folders |
+| Regex Log Analyzer | Rapidly triage system/application logs for errors and anomalies |
+| System Health Checker | Monitor CPU, memory and disk health for early warning of resource issues |
 
 ---
 
 ## 🚀 Future Improvements
 
-Possible improvements include:
-
-* Add persistent data storage
-* Add stronger input validation
-* Add exception handling
-* Add automated tests
-* Add device assignment validation
-* Add employee deletion and editing
-* Add password input masking
-* Export employee and device records
-* Add a graphical user interface
+- [ ] Add persistent data storage (JSON/CSV/SQLite)
+- [ ] Add automated unit tests (`pytest`)
+- [ ] Add stronger input validation across all tools
+- [ ] Add password input masking
+- [ ] Add scheduled/automated health check runs
+- [ ] Export reports (CSV/PDF) from log analyzer and health checker
+- [ ] Add a simple GUI or web dashboard
+- [ ] CI pipeline (GitHub Actions) to lint and test on every PR
 
 ---
 
 ## 👨‍💻 Author
 
-**Ntando Badla**
+<div align="center">
 
-Python Fundamentals — Week 1
+**Ntando Badla**
+Python & IT Automation — Week 2
+
+![Profile Views](https://komarev.com/ghpvc/?username=NtandoBadla&color=2E9EF7&style=flat-square&label=Repo+Views)
+
+</div>
