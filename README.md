@@ -26,6 +26,7 @@ Each week builds on the last: Week 1 covered Python fundamentals, Week 2 added a
 - [Week 1 — Python Fundamentals](#-week-1--python-fundamentals)
 - [Week 2 — Automation & Git Workflow](#-week-2--automation--git-workflow)
 - [Week 3 — Troubleshooting, Configuration & Cloud](#-week-3--troubleshooting-configuration--cloud)
+- [Week 4 — Capstone: IT Operations Automation Toolkit](#-week-4--capstone-it-operations-automation-toolkit)
 - [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [Running the Scripts](#️-running-the-scripts)
@@ -173,6 +174,68 @@ The toolkit is now packaged so it runs identically on a laptop, a VM, or a conta
 
 ---
 
+## 🎓 Week 4 — Capstone: IT Operations Automation Toolkit
+
+Week 4 unified everything built across the month into one working system: a single entry point (`main.py`) wiring together health monitoring, performance diagnostics, CSV data processing, structured reporting, and live API integration.
+
+### 1. Structured Reporting
+
+**File:** `scripts/report_generator.py`
+
+Converts health-check data into a proper report — including the date, checks performed, problems detected, and recommended actions — exportable as **JSON, CSV, HTML, or plain text**.
+
+```bash
+python main.py health --report html
+```
+
+### 2. API Integration
+
+**File:** `scripts/api_client.py`
+
+Retrieves and processes live data from two public APIs:
+- **Public IP lookup** — useful for support tickets and remote troubleshooting
+- **GitHub repo status** — live open-issue count, stars, and last-updated date for this very project
+
+```bash
+python main.py ip
+python main.py repo-status --owner NtandoBadla --repo python-utilities-pack
+```
+
+### 3. CSV Data Validation
+
+**File:** `scripts/data_validator.py`, `scripts/test_data_validator.py`
+
+Reads employee/device records from a CSV, validates required fields, flags duplicate entries (case-insensitive), and produces a cleaned output file. Includes a deliberately messy sample dataset (`sample_employees.csv`) and 10 unit tests.
+
+```bash
+python main.py validate-csv --file sample_employees.csv --output output/cleaned.csv
+```
+
+### 4. Capstone Integration — `main.py`
+
+**File:** `scripts/main.py`
+
+The single entry point tying every module together:
+
+```bash
+python main.py health --report html
+python main.py performance --limit 5
+python main.py validate-csv --file sample_employees.csv --output output/cleaned.csv
+python main.py ip
+python main.py repo-status --owner <owner> --repo <repo>
+python main.py organize --path "<folder-path>"
+python main.py analyze-logs --file "<log-path>"
+python main.py full-scan --report html
+```
+
+`organize` and `analyze-logs` invoke the Week 2 `file_organizer.py` and `log_analyzer.py` scripts directly, keeping `main.py` decoupled from their internals.
+
+---
+
+**Final deliverables:** [`DEMO_SCRIPT.md`](DEMO_SCRIPT.md) — live demonstration walkthrough · [`REFLECTION.md`](REFLECTION.md) — individual reflection.
+
+---
+
 ## 📁 Project Structure
 
 ```text
@@ -188,13 +251,21 @@ python-utilities-pack/
 │   ├── test_system_health_checker.py
 │   ├── performance_monitor.py
 │   ├── config_manager.py
-│   └── config.json
+│   ├── config.json
+│   ├── report_generator.py
+│   ├── api_client.py
+│   ├── data_validator.py
+│   ├── test_data_validator.py
+│   ├── sample_employees.csv
+│   └── main.py
 │
 ├── requirements.txt
 ├── Dockerfile
 ├── .gitignore
 ├── CLOUD_DEPLOYMENT.md
 ├── WEEK3_REPORT.md
+├── DEMO_SCRIPT.md
+├── REFLECTION.md
 └── README.md
 ```
 
@@ -246,6 +317,16 @@ python scripts/system_health_checker.py --all
 # Week 3
 python scripts/performance_monitor.py --sort-by cpu --limit 5
 cd scripts && python -m unittest test_system_health_checker -v
+
+# Week 4 — capstone (run from inside scripts/)
+cd scripts
+python main.py health --report html
+python main.py performance --limit 5
+python main.py validate-csv --file sample_employees.csv --output output/cleaned.csv
+python main.py ip
+python main.py repo-status --owner NtandoBadla --repo python-utilities-pack
+python main.py full-scan --report html
+python -m unittest test_data_validator -v
 ```
 
 ---
