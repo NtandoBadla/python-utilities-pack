@@ -17,11 +17,24 @@ Usage in another script:
 
 import json
 import logging
+import os
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 CONFIG_PATH = Path("config.json")
+
+# Environment variables that can override config.json values.
+# This matters for cloud/VM deployment: cloud platforms (AWS, Azure,
+# Docker, etc.) typically configure apps via environment variables
+# rather than by hand-editing files on the instance.
+ENV_OVERRIDES = {
+    "HEALTH_WARNING_THRESHOLD": ("thresholds", "warning", int),
+    "HEALTH_CRITICAL_THRESHOLD": ("thresholds", "critical", int),
+    "HEALTH_TOP_PROCESS_LIMIT": ("performance", "top_process_limit", int),
+    "HEALTH_SORT_BY": ("performance", "sort_by", str),
+    "HEALTH_LOG_LEVEL": ("logging", "level", str),
+}
 
 DEFAULT_CONFIG = {
     "thresholds": {
@@ -84,6 +97,35 @@ def validate_config(config):
     return True
 
 
+def apply_env_overrides(config):
+    """
+    Override config values with environment variables, if set.
+
+    This lets the same config.json ship as a sensible default while
+    still allowing a cloud/VM deployment to tune behaviour (e.g. a
+    stricter WARNING threshold on a production server) purely through
+    environment variables — no file edits, no redeploying code.
+    """
+    for env_var, (section, key, cast) in ENV_OVERRIDES.items():
+        raw_value = os.environ.get(env_var)
+        if raw_value is None:
+            continue
+
+        try:
+            value = cast(raw_value)
+        except ValueError:
+            logger.warning(
+                f"Environment variable '{env_var}' has invalid value "
+                f"'{raw_value}' — ignoring override."
+            )
+            continue
+
+        config.setdefault(section, {})[key] = value
+        logger.info(f"Config override from environment: {section}.{key} = {value}")
+
+    return config
+
+
 def load_config(path=CONFIG_PATH):
     """
     Load configuration from a JSON file.
@@ -113,6 +155,17 @@ def load_config(path=CONFIG_PATH):
         logger.warning(
             f"Config file at '{path}' failed validation ({error}). "
             "Falling back to default settings."
+        )
+        config = DEFAULT_CONFIG.copy()
+
+    config = apply_env_overrides(config)
+
+    try:
+        validate_config(config)
+    except ValueError as error:
+        logger.warning(
+            f"Environment overrides produced an invalid config ({error}). "
+            "Ignoring overrides and using file/default settings."
         )
         return DEFAULT_CONFIG
 
