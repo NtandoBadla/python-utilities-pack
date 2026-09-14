@@ -6,10 +6,19 @@ from pathlib import Path
 
 import psutil
 
+from config_manager import load_config
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+CONFIG = load_config()
+WARNING_THRESHOLD = CONFIG["thresholds"]["warning"]
+CRITICAL_THRESHOLD = CONFIG["thresholds"]["critical"]
+
 # ---------------------------------------------------------------------------
 # Logging setup
 # ---------------------------------------------------------------------------
-LOG_DIR = Path("logs")
+LOG_DIR = Path(CONFIG.get("paths", {}).get("log_directory", "logs"))
 LOG_DIR.mkdir(exist_ok=True)
 LOG_FILE = LOG_DIR / "system_health_checker.log"
 
@@ -62,7 +71,11 @@ def get_system_health():
         logger.error(f"Failed to read memory usage: {error}")
 
     try:
-        drive = "C:\\" if platform.system() == "Windows" else "/"
+        paths = CONFIG.get("paths", {})
+        if platform.system() == "Windows":
+            drive = paths.get("disk_to_check_windows", "C:\\")
+        else:
+            drive = paths.get("disk_to_check_unix", "/")
         health["disk_usage"] = psutil.disk_usage(drive).percent
         logger.info(f"Disk usage read ({drive}): {health['disk_usage']}%")
     except FileNotFoundError:
@@ -83,9 +96,9 @@ def determine_status(usage):
     if usage is None:
         return "UNKNOWN"
 
-    if usage >= 90:
+    if usage >= CRITICAL_THRESHOLD:
         return "CRITICAL"
-    elif usage >= 75:
+    elif usage >= WARNING_THRESHOLD:
         return "WARNING"
     else:
         return "HEALTHY"
