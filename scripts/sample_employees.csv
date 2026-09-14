@@ -1,0 +1,9 @@
+name,email,department,device_id
+John Smith,john.smith@company.com,IT,DEV-001
+Jane Doe,jane.doe@company.com,Finance,DEV-002
+John Smith,john.smith@company.com,IT,DEV-001
+Bob Jones,,Sales,DEV-003
+Alice Brown,alice.brown@company.com,,DEV-004
+Charlie Lee,charlie.lee@company.com,Marketing,
+Diana Prince,diana.prince@company.com,HR,DEV-005
+Jane Doe,jane.doe@company.com,Finance,DEV-002
