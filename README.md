@@ -30,6 +30,7 @@ Each week builds on the last: Week 1 covered Python fundamentals, Week 2 added a
 - [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [Running the Scripts](#️-running-the-scripts)
+- [Running the Dashboard (Backend + Frontend)](#-running-the-dashboard-backend--frontend)
 - [Running with Docker](#-running-with-docker)
 - [Python Concepts Practised](#-python-concepts-practised)
 - [IT Department Applications](#-it-department-applications)
@@ -241,6 +242,24 @@ python main.py full-scan --report html
 ```text
 python-utilities-pack/
 │
+├── backend/
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── health.py          ← FastAPI health endpoint
+│   ├── __init__.py
+│   └── app.py                 ← FastAPI application entry point
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── App.tsx            ← React dashboard
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.ts
+│
 ├── scripts/
 │   ├── system_information.py
 │   ├── password_checker.py
@@ -331,6 +350,124 @@ python -m unittest test_data_validator -v
 
 ---
 
+## 🖥️ Running the Dashboard (Backend + Frontend)
+
+The dashboard is a React frontend that talks to a FastAPI backend serving live system health data. Follow every step below on a fresh machine.
+
+### Prerequisites
+
+| Requirement | Minimum version | Download |
+|---|---|---|
+| Python | 3.11+ | https://www.python.org/downloads/ |
+| Node.js | 18+ | https://nodejs.org/ |
+| Git | any | https://git-scm.com/ |
+
+> During the Python installer, tick **"Add Python to PATH"** before clicking Install.
+
+---
+
+### Step 1 — Clone the repository
+
+```bash
+git clone https://github.com/NtandoBadla/python-utilities-pack.git
+cd python-utilities-pack
+```
+
+---
+
+### Step 2 — Install Python dependencies
+
+From the project root:
+
+```bash
+pip install -r requirements.txt
+pip install fastapi uvicorn
+```
+
+`requirements.txt` covers `psutil` and `requests`. `fastapi` and `uvicorn` power the backend API.
+
+---
+
+### Step 3 — Start the backend
+
+Run this from the **project root** (not inside `scripts/` or `backend/`):
+
+```bash
+python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000 --reload
+```
+
+Expected output:
+
+```text
+Registered API endpoints:
+  GET          /
+  GET          /api
+  GET          /api/health/
+  ...
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+Verify it works by opening http://127.0.0.1:8000/api/health/ in your browser — you should see a JSON response with CPU, memory, and disk data.
+
+> Keep this terminal open. The backend must stay running while you use the dashboard.
+
+---
+
+### Step 4 — Install frontend dependencies
+
+Open a **second terminal**, then:
+
+```bash
+cd frontend
+npm install
+```
+
+This installs React, Vite, Tailwind CSS, and all other frontend packages listed in `frontend/package.json`.
+
+---
+
+### Step 5 — Start the frontend
+
+Still inside the `frontend/` folder:
+
+```bash
+npm run dev
+```
+
+Expected output:
+
+```text
+  VITE v8.x.x  ready in Xms
+
+  ➜  Local:   http://localhost:5173/
+```
+
+Open http://localhost:5173 in your browser. The dashboard will load and begin polling the backend every 10 seconds.
+
+---
+
+### What you should see
+
+- Hostname, Operating System, and OS Version cards at the top
+- CPU, Memory, and Disk usage cards with live percentages and HEALTHY / WARNING / CRITICAL badges
+- A green **API Connected** indicator in the bottom status bar
+- Data refreshes automatically every 10 seconds (or manually via the **Refresh** button)
+
+---
+
+### Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `ModuleNotFoundError: No module named 'fastapi'` | Run `pip install fastapi uvicorn` from the project root |
+| `ModuleNotFoundError: No module named 'psutil'` | Run `pip install -r requirements.txt` from the project root |
+| `Address already in use` on port 8000 | Another process is using port 8000. Stop it or change the port with `--port 8001` and update the fetch URL in `frontend/src/App.tsx` to match |
+| Dashboard shows **"Unable to connect to the backend"** | Make sure the backend terminal is still running and the URL in `App.tsx` is `http://127.0.0.1:8000/api/health/` |
+| `npm: command not found` | Node.js is not installed or not on PATH — download it from https://nodejs.org/ |
+| `npm install` fails with permission errors (Windows) | Run the terminal as Administrator |
+
+---
+
 ## 🐳 Running with Docker
 
 ```bash
@@ -400,7 +537,7 @@ docker run --rm -e HEALTH_WARNING_THRESHOLD=80 it-toolkit
 - [ ] Send alerts (email/Slack webhook) on CRITICAL status
 - [ ] Centralize reports from multiple machines
 - [ ] Export reports (CSV/PDF) from log analyzer and health checker
-- [ ] Add a simple GUI or web dashboard
+- [x] Add a simple GUI or web dashboard
 - [ ] CI pipeline (GitHub Actions) to lint and test on every PR
 
 ---

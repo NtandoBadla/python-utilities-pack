@@ -63,6 +63,10 @@ def top_processes(limit=5, sort_by="cpu"):
     if sort_by not in ("cpu", "memory"):
         raise ValueError("sort_by must be 'cpu' or 'memory'")
 
+    for proc in psutil.process_iter():
+        proc.cpu_percent(interval=None)
+    time.sleep(0.5)
+
     processes = []
 
     for proc in psutil.process_iter(["pid", "name", "cpu_percent", "memory_percent"]):

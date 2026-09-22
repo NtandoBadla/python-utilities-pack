@@ -38,3 +38,33 @@ def api_status():
         "version": "1.0.0",
         "status": "online"
     }
+
+
+@app.get("/api/endpoints", tags=["API"])
+def list_endpoints():
+    """Return the HTTP routes currently registered with the application."""
+    endpoints = []
+
+    for route in app.routes:
+        methods = getattr(route, "methods", None)
+        path = getattr(route, "path", None)
+
+        if not methods or not path:
+            continue
+
+        endpoints.append({
+            "path": path,
+            "methods": sorted(methods),
+        })
+
+    return {"endpoints": sorted(endpoints, key=lambda endpoint: endpoint["path"])}
+
+
+@app.on_event("startup")
+async def log_registered_endpoints():
+    """Print the registered API routes when the backend starts."""
+    print("Registered API endpoints:")
+
+    for endpoint in list_endpoints()["endpoints"]:
+        methods = ", ".join(endpoint["methods"])
+        print(f"  {methods:<12} {endpoint['path']}")

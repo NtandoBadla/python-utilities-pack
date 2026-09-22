@@ -195,6 +195,10 @@ def main():
     p_full = subparsers.add_parser("full-scan", help="Run health, performance and IP checks and save a report")
     p_full.add_argument("--report", choices=["json", "csv", "html", "text"], default="html")
 
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(0)
+
     args = parser.parse_args()
     logger.info(f"Toolkit command started: {args.command}")
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>System Health Report</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 2em; color: #222; }
+    h1 { color: #2E9EF7; }
+    h2 { border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+    .meta { color: #555; margin-bottom: 1.5em; }
+    .problems li { color: #c0392b; }
+    .actions li { color: #1e7e34; }
+</style>
+</head>
+<body>
+    <h1>System Health Report</h1>
+    <p class="meta">
+        Generated: 2026-09-21T10:13:24<br>
+        Hostname: LAPTOP-17TBAUFS<br>
+        Operating System: Windows
+    </p>
+
+    <h2>Checks Performed</h2>
+    <ul><li>CPU Usage: 100.0% [CRITICAL]</li><li>Memory Usage: 86.1% [WARNING]</li><li>Disk Usage: 93.2% [CRITICAL]</li></ul>
+
+    <h2>Problems Detected</h2>
+    <ul class="problems"><li>CPU Usage is CRITICAL (100.0%)</li><li>Memory Usage is WARNING (86.1%)</li><li>Disk Usage is CRITICAL (93.2%)</li></ul>
+
+    <h2>Recommended Actions</h2>
+    <ul class="actions"><li>Investigate high-CPU processes (see performance_monitor.py) and close unnecessary applications.</li><li>Close unused applications or browser tabs; consider adding more RAM if this recurs.</li><li>Free up disk space — remove temporary files, empty the recycle bin, or move files to external storage.</li></ul>
+</body>
+</html>
