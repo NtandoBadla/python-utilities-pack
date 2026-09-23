@@ -1,0 +1,4 @@
+name,email,department,device_id
+John Smith,john.smith@company.com,IT,DEV-001
+Jane Doe,jane.doe@company.com,Finance,DEV-002
+Diana Prince,diana.prince@company.com,HR,DEV-005

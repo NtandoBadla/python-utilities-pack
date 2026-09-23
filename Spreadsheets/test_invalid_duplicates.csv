@@ -1,0 +1,5 @@
+name,email,department,device_id
+Ntando,ntando@example.com,IT,PC001
+John,john@example.com,HR,PC002
+,missing@example.com,IT,PC003
+Ntando,ntando@example.com,IT,PC001
